@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: consumingrest-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: consumingrest
+  template:
+    metadata:
+      labels:
+        app: consumingrest
+    spec:
+      containers:
+      - name: consumingrest
+        image: yabe211/consumingrest:latest
+        ports:
+        - containerPort: 8080
