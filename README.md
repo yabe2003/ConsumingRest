@@ -84,4 +84,3 @@ kubectl scale deployment consumingrest-deployment --replicas=3
 ## Additional Notes
 - Ensure that any external services the application needs to communicate with are accessible from your Kubernetes cluster.
 - Update the Docker image and redeploy as necessary to reflect changes in the application.
-```
