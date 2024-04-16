@@ -1,19 +1,11 @@
-
-FROM openjdk:11-jdk-slim as build
-WORKDIR /workspace/app
-
-COPY mvnw .
-COPY .mvn .mvn
-COPY pom.xml .
-COPY src src
-
-RUN ./mvnw install -DskipTests
-
+# Use OpenJDK 11 JRE for the runtime environment
 FROM openjdk:11-jre-slim
-VOLUME /tmp
-ARG DEPENDENCY=/workspace/app/target/dependency
-COPY --from=build ${DEPENDENCY}/BOOT-INF/lib /app/lib
-COPY --from=build ${DEPENDENCY}/META-INF /app/META-INF
-COPY --from=build ${DEPENDENCY}/BOOT-INF/classes /app
 
-ENTRYPOINT ["java","-cp","app:app/lib/*","com.example.consumingrest.ConsumingRestApplication"]
+# Set the working directory inside the Docker container
+WORKDIR /app
+
+# Copy the built JAR file into the Docker container
+COPY target/*.jar app.jar
+
+# Command to run the application
+ENTRYPOINT ["java", "-jar", "app.jar"]
