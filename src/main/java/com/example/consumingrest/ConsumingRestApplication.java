@@ -1,4 +1,3 @@
-
 package com.example.consumingrest;
 
 import org.slf4j.Logger;
@@ -14,6 +13,9 @@ public class ConsumingRestApplication {
 
     private static final Logger log = LoggerFactory.getLogger(ConsumingRestApplication.class);
 
+    // Directly specify the base URL here
+    private final String baseUrl = "http://localhost:8080";
+
     public static void main(String[] args) {
         SpringApplication.run(ConsumingRestApplication.class, args);
     }
@@ -26,9 +28,22 @@ public class ConsumingRestApplication {
     @Bean
     public CommandLineRunner run(RestTemplate restTemplate) throws Exception {
         return args -> {
-            Quote quote = restTemplate.getForObject(
-                    "http://localhost:8080/api/random", Quote.class);
-            log.info(quote.toString());
+            // Fetch random quote
+            fetchQuote(restTemplate, "/api/random");
+
+            // Fetch specific quotes
+            fetchQuote(restTemplate, "/api/1");
+            fetchQuote(restTemplate, "/api/2");
+            fetchQuote(restTemplate, "/api/3");
         };
+    }
+
+    private void fetchQuote(RestTemplate restTemplate, String path) {
+        try {
+            Quote quote = restTemplate.getForObject(baseUrl + path, Quote.class);
+            log.info(quote.toString());
+        } catch (Exception e) {
+            log.error("Failed to fetch quote from " + path, e);
+        }
     }
 }
