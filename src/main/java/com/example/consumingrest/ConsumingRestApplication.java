@@ -13,8 +13,8 @@ public class ConsumingRestApplication {
 
     private static final Logger log = LoggerFactory.getLogger(ConsumingRestApplication.class);
 
-    // Directly specify the base URL here
-    private final String baseUrl = "http://localhost:8080";
+    // Specify the base URL for Docker environment
+    private final String baseUrl = "http://host.docker.internal:8080";
 
     public static void main(String[] args) {
         SpringApplication.run(ConsumingRestApplication.class, args);
