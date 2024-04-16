@@ -31,7 +31,7 @@ public class Quote {
     @Override
     public String toString() {
         return "Quote{" +
-                "type='" + type + ''' +
+                "type='" + type + '\'' +
                 ", value=" + value +
                 '}';
     }
@@ -66,7 +66,7 @@ class Value {
     public String toString() {
         return "Value{" +
                 "id=" + id +
-                ", quote='" + quote + ''' +
+                ", quote='" + quote + '\'' +
                 '}';
     }
 }
